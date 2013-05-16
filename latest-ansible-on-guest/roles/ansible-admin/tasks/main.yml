@@ -1,0 +1,22 @@
+---
+- name: Install epel repo
+  yum: >
+     state=latest
+     name=epel-release
+
+- name: Install Ansible Dependencies
+  yum: >
+     state=latest
+     name=$item
+  with_items:
+     - PyYAML python-paramiko python-jinja2 python
+
+- name: Install Ansible from github (latest dev)
+  git: >
+      repo=git://github.com/ansible/ansible.git
+      dest=/home/vagrant
+
+- name: add the hack env setup script to bash_profile
+  template: >
+          source=ansible-hack-profile.j2
+          dest=/etc/profile.d/ansible.sh 
