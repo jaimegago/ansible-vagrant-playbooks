@@ -9,7 +9,10 @@
      state=latest
      name=$item
   with_items:
-     - PyYAML python-paramiko python-jinja2 python
+     - PyYAML
+     - python-paramiko
+     - python-jinja2
+     - python
 
 - name: Install Ansible from github (latest dev)
   git: >
