@@ -1,8 +1,12 @@
 ---
 - name: Install epel repo
-  yum: >
-     state=latest
-     name=epel-release
+  command: >
+     sudo
+     yum
+     install
+     http://mirror.pnl.gov/epel/6/i386/epel-release-6-8.noarch.rpm
+     -y
+     creates=/etc/yum.repos.d/epel.repo
 
 - name: Install Ansible Dependencies
   yum: >
@@ -13,13 +17,14 @@
      - python-paramiko
      - python-jinja2
      - python
+     - git
 
 - name: Install Ansible from github (latest dev)
   git: >
       repo=git://github.com/ansible/ansible.git
-      dest=/home/vagrant
+      dest=/home/vagrant/ansible
 
 - name: add the hack env setup script to bash_profile
   template: >
-          source=ansible-hack-profile.j2
+          src=ansible-hack-profile.j2
           dest=/etc/profile.d/ansible.sh 
